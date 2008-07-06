@@ -4,14 +4,12 @@
 # Usage: ./makedist version > ../php-inotify-version.tar.bz2
 
 set -e
-set -u
 
 dir=$(readlink -f "$0")
 dir=$(dirname "$dir")
 pkg=$(basename "$dir")
 
-version=""
-shift && version="$0"
+version="$1"
 [ -z "$version" ] && version=$(date +%s)
 
 (
