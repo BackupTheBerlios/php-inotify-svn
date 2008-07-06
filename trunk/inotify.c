@@ -16,7 +16,7 @@
   +----------------------------------------------------------------------+
 */
 
-/* $Id: header,v 1.16.2.1.2.1 2007/01/01 19:32:09 iliaa Exp $ */
+/* $Id$ */
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -123,7 +123,7 @@ PHP_MSHUTDOWN_FUNCTION(inotify)
 PHP_MINFO_FUNCTION(inotify)
 {
 	php_info_print_table_start();
-	php_info_print_table_row(2, "Revision", "$Revision$");
+	php_info_print_table_row(2, "Revision", "$Id$");
 	php_info_print_table_end();
 }
 /* }}} */

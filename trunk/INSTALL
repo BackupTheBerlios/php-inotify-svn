@@ -1,0 +1,30 @@
+Installation Instructions
+========================
+
+Build and install as PHP module:
+
+$ tar xjf php-inotify-version.tar.bz2
+$ cd php-inotify-version
+$ phpize
+$ ./configure
+$ make
+$ make install
+
+Build statically in PHP:
+
+$ tar xjf php-inotify-version.tar.bz2
+$ cp -rf php-inotify-version php-version/ext/inotify
+$ cd php-version
+$ ./buildconf --force
+$ ./configure <your configure options> --enable-inotify
+$ make
+$ make install
+
+Build and install a Debian package:
+
+$ apt-get install dpkg-dev fakeroot php5-dev
+$ tar xjf php-inotify-version.tar.bz2
+$ cd php-inotify-version
+$ dpkg-buildpackage -rfakeroot
+$ dpkg -i ../php-inotify_version_arch.deb
+

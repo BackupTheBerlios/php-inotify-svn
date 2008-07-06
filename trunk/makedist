@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# Builds a tarball of the php-inotify extension
+# Usage: ./makedist version > ../php-inotify-version.tar.bz2
+
+set -e
+set -u
+
+dir=$(readlink -f "$0")
+dir=$(dirname "$dir")
+pkg=$(basename "$dir")
+
+version=""
+shift && version="$0"
+[ -z "$version" ] && version=$(date +%s)
+
+(
+	phpize --clean
+	[ -x "$(which fakeroot)" ] && [ -x "$(which dh_clean)" ] && fakeroot debian/rules clean
+) >&2
+
+cd "$dir"
+
+tar cv {.,config.m4,INSTALL,LICENSE,README,CREDITS,EXPERIMENTAL,inotify.c,inotify.php,php_inotify.h,tests,tests/*.phpt,tail.php,debian,debian/*} \
+	--no-recursion \
+	|tardy \
+		-User nobody \
+		-Group nogroup \
+		-Mode_Clear 0077 \
+		-Mode_Set 0600 \
+		-Now \
+		-Prefix "php-$pkg-$version" \
+	|bzip2 --best
+
+echo "Packaging of php-$pkg-$version done" >&2
+
