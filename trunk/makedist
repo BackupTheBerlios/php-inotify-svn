@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Builds a tarball of the php-inotify extension
-# Usage: ./makedist version > ../php-inotify-version.tar.bz2
+# Usage: ./makedist > ../php-inotify-version.tar.bz2
 
 set -e
 
@@ -9,8 +9,7 @@ dir=$(readlink -f "$0")
 dir=$(dirname "$dir")
 pkg=$(basename "$dir")
 
-version="$1"
-[ -z "$version" ] && version=$(date +%s)
+version=$(grep '^#define \+INOTIFY_MODULE_VERSION \+"[^"]\+"' "$dir/php_inotify.h"|cut -d'"' -f2)
 
 (
 	phpize --clean

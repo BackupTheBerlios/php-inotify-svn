@@ -40,6 +40,8 @@ PHP_FUNCTION(inotify_rm_watch);
 PHP_FUNCTION(inotify_queue_len);
 PHP_FUNCTION(inotify_read);
 
+#define INOTIFY_MODULE_VERSION "0.1.2"
+
 #define INOTIFY_BUF_TOO_SMALL(ret,errno) \
 	((ret) == 0 || ((ret) == -1 && (errno) == EINVAL))
 #define INOTIFY_FD(stream, fd) \

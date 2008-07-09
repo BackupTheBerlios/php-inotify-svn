@@ -60,7 +60,7 @@ zend_module_entry inotify_module_entry = {
 	NULL,		/* Replace with NULL if there's nothing to do at request end */
 	PHP_MINFO(inotify),
 #if ZEND_MODULE_API_NO >= 20010901
-	"0.1", /* Replace with version number for your extension */
+	INOTIFY_MODULE_VERSION,
 #endif
 	STANDARD_MODULE_PROPERTIES
 };
@@ -123,7 +123,7 @@ PHP_MSHUTDOWN_FUNCTION(inotify)
 PHP_MINFO_FUNCTION(inotify)
 {
 	php_info_print_table_start();
-	php_info_print_table_row(2, "Revision", "$Id$");
+	php_info_print_table_row(2, "Version", INOTIFY_MODULE_VERSION);
 	php_info_print_table_end();
 }
 /* }}} */
@@ -320,6 +320,7 @@ PHP_FUNCTION(inotify_read)
 	}
 	efree(readbuf);
 }
+/* }}} */
 
 /*
  * Local variables:

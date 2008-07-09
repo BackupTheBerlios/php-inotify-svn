@@ -8,11 +8,20 @@ PACKAGE_NAME=php-inotify
 PHPIZE=/usr/bin/phpize5
 PHPCONFIG=/usr/bin/php-config5
 
+source_version:=$(shell grep '^\#define \+INOTIFY_MODULE_VERSION \+"[^"]\+"' "php_inotify.h"|cut -d'"' -f2)
+debian_source_version:=$(shell grep '^php-inotify (.*-[^-]\+)' debian/changelog|head -n1|sed 's/^php-inotify (\(.*\)-[^-]\+).*/\1/')
+
 phpapiver=$(shell $(PHPCONFIG) --phpapi)
 
 configure: configure-stamp
 configure-stamp:
 	dh_testdir
+
+ifeq (,$(findstring noversioncheck,$(DEB_BUILD_OPTIONS)))
+ifneq ($(source_version),$(debian_source_version))
+	$(error source version '$(source_version)' != debian source version '$(debian_source_version)')
+endif
+endif
 
 	$(PHPIZE)
 	./configure
